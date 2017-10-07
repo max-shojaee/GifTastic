@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<Title>GifTastic</Title>
+    <meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="assets/javascript/app.js"></script>
+</head>
+<body>
+	<div class="row" id="buttonsList">
+	</div>
+	<div class="col-sm-9">
+		<div class="row" id="carImages"></div>
+	</div>
+	<div class="col-sm-3">
+		<form id="carForm">
+			<label id="label" for="carName">Add your favorite car</label>
+			<input type="text" id="carName"><br>
+			<input id="submitCar" class="carButton" type="submit" value="Submit" onClick="addCar()">
+		</form>
+	</div>
+</body>
+</html>

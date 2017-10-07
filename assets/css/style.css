@@ -1,0 +1,50 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+    font-size: 18px;
+    font-family: serif,'Arial', 'Helvetica Neue', Helvetica;
+    background-color: lightgrey;
+}
+
+
+.carButton{
+    background-color: green;
+    color: white;
+    position: center;
+    text-align: center;
+    align-content: center;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 0px round;
+    margin: 5px;
+    border-radius: 10px;
+}
+.carButton:hover {
+    background-color: salmon;
+}
+
+#submitCar{
+    margin-left: 0;
+    padding-right: 15px;
+    padding-left: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 0px round;
+    border-radius: 10px;
+}
+
+#label{
+    margin-top: 30px;
+}
+
+#buttonsList{
+    margin-top: 10px;
+}
+
+.row{
+    margin-left: 10px;
+}
