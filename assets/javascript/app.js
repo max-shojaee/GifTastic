@@ -3,14 +3,16 @@
 //====================================================================
 
 // Default array of cars
-var cars = ["BMW", "Mercedes-Benz", "Rolls Royce", "Ferrari", "Audi", "Bugatti", 
-            "Lamborghini", "Pagani", "Range Rover", "Maserati", "Porsche"];
+var cars = ["BMW", "ROLLS ROYCE", "FERRARI", "AUDI", "BUGATTI", 
+            "LAMBORGHINI", "PAGANI", "RANGE ROVER", "MASERATI", "PORSCHE"];
 
 
 //====================================================================
 //  (document).ready()
 //====================================================================
 $(document).ready(function(){
+
+    // Display the default buttons when the document is ready
     displayButtons();
 });
 
@@ -19,7 +21,10 @@ $(document).ready(function(){
 //====================================================================
 function displayButtons() {
 
+    // Remove the displayed buttons
     $("#buttonsView").empty();
+
+    // Traverse the array of cars and display the corresponding buttons
     for (var i = 0; i < cars.length; i++) 
     {
         var button = $('<button>');
@@ -31,20 +36,41 @@ function displayButtons() {
 }
 
 //====================================================================
-//  Event handler for processing button clicks
+//  addCar()
 //====================================================================
 function addCar()
 {
     event.preventDefault();
+
+    // If a new value is submitted by the user, push it to the array
     var car = $("#carName").val().trim();
-    cars.push(car);
-    displayButtons();
+
+    // Clear the user input
+    $("#carName").val("");
+
+    if (car !=="")
+    {
+      car = car.toUpperCase();
+
+      // If the car already exists in the array, don't add it again
+      for (var i = 0; i < cars.length; i++) 
+      {
+        if (cars[i] === car)
+          return;
+      }
+      cars.push(car);
+      displayButtons();
+    }
 }
 
 //====================================================================
 //  (document).onClick()
 //====================================================================
+
+// Call getCarImages() when a car button is clicked.
 $(document).on("click", ".carButton", getCarImages);
+
+// Call toggleImageAnimation() when an image is clicked.
 $(document).on("click", ".gif", toggleImageAnimation);
 
 //====================================================================
@@ -71,21 +97,18 @@ function getCarImages() {
         // Looping over every result item
         for (var i = 0; i < results.length; i++) 
         {
-            // Only taking action if the photo has an appropriate rating
+            // Filter out R rated images
             if (results[i].rating !== "r") 
             {
-                  // Creating a div with the class "item"
+                  // Creating a div with the class "img-thumbnail"
                   var gifDiv = $("<div class='img-thumbnail'>");
 
-                  // Storing the result item's rating
+                 // Creating a paragraph tag for the rating
                   var rating = results[i].rating;
-
-                  // Creating a paragraph tag with the result item's rating
                   var p = $("<p>").text("Rating: " + rating);
                   
+                  // Create an image element and assign it the required attributes
                   var carImage = $("<img>");
-
-                  // Giving the image attributes
                   carImage.attr("src", results[i].images.fixed_height_still.url);
                   carImage.attr("data-still", results[i].images.fixed_height_still.url);
                   carImage.attr("data-animate", results[i].images.fixed_height.url);
@@ -93,11 +116,11 @@ function getCarImages() {
                   carImage.attr("data-state", "still");
 
 
-                  // Appending the paragraph and personImage we created to the "gifDiv" div we created
+                  // Appending the paragraph and image to "gifDiv"
                   gifDiv.append(p);
                   gifDiv.append(carImage);
 
-                  // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
+                  // Pre-pending the gifDiv in the #carImages div
                   $("#carImages").prepend(gifDiv);
             }
         }
