@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE  html>
 <html lang="en">
 <head>
 	<Title>GifTastic</Title>
@@ -11,17 +11,20 @@
 	<script src="assets/javascript/app.js"></script>
 </head>
 <body>
-	<div class="row" id="buttonsList">
+	<div class="row" id="buttonsView">
 	</div>
-	<div class="col-sm-9">
-		<div class="row" id="carImages"></div>
+	<div class="row">
+		<div class="col-sm-9"></div>
+		<div class="col-sm-3">
+			<form id="carForm">
+				<label id="label" for="carName">Add your favorite car</label>
+				<input type="text" id="carName"><br>
+				<input id="submitCar" type="submit" value="Submit" onClick="addCar()">
+			</form>
+		</div>
 	</div>
-	<div class="col-sm-3">
-		<form id="carForm">
-			<label id="label" for="carName">Add your favorite car</label>
-			<input type="text" id="carName"><br>
-			<input id="submitCar" class="carButton" type="submit" value="Submit" onClick="addCar()">
-		</form>
-	</div>
+	<br>
+	<div class="row" id="carImages"></div>
 </body>
 </html>
+

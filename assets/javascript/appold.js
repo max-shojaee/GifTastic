@@ -4,30 +4,42 @@
 
 // Default array of cars
 var cars = ["BMW", "Mercedes-Benz", "Rolls Royce", "Ferrari", "Audi", "Bugatti", 
-            "Lamborghini", "Pagani", "Range Rover", "Maserati", "Porsche"];
+            "Lamborghini", "Pagani", "Range Rover", "Jaguar", "Bentley"];
 
 
 //====================================================================
 //  (document).ready()
 //====================================================================
 $(document).ready(function(){
-    displayButtons();
-});
+    //addButtons();
+})
 
 //====================================================================
 //  addButtons()
 //====================================================================
-function displayButtons() {
+function addButtons() {
 
-    $("#buttonsView").empty();
+    $("#buttons").empty();
     for (var i = 0; i < cars.length; i++) 
     {
-        var button = $('<button>');
+        var button = $("<buttons>");
         button.addClass("carButton");
-        button.attr('name', cars[i]);
+        button.attr("name", cars[i]);
+        button.attr("index", i);
+        button.attr("onclick", "getCarImages()");
         button.text(cars[i]);
-        $("#buttonsView").append(button);
+        $("buttons").append(button);
     }
+
+      for (var i=0; i < letters.length; i++)
+         {
+            var letterBtn = $('<buttons>');
+            letterBtn.attr('class', 'letter-button letter letter-button-color');
+            letterBtn.attr('data-letter', letters[i]);
+            letterBtn.text(letters[i]);
+            letterBtn.on("click", processLetter);
+            $("#buttons").append(letterBtn);
+        }
 }
 
 //====================================================================
@@ -36,31 +48,37 @@ function displayButtons() {
 function addCar()
 {
     event.preventDefault();
+    console.log("new car: ");
     var car = $("#carName").val().trim();
+    console.log("new car: "+car);
     cars.push(car);
-    displayButtons();
+    console.log(cars);
+    addButtons();
 }
 
-//====================================================================
-//  (document).onClick()
-//====================================================================
-$(document).on("click", ".carButton", getCarImages);
-$(document).on("click", ".gif", toggleImageAnimation);
+
+
+
+
 
 //====================================================================
 //  getCarImages()
 //====================================================================
-function getCarImages() {
-      
-    $("#carImages").empty();
 
-    var car = $(this).attr("name");
- 
-    // Constructing a URL to search Giphy for the name of the given topic, i.e. car
+function getCarImages() {
+ //$("button").on("click", function() {
+//{
+    //event.preventDefault();
+    
+    var car = $(this).attr("index");
+
+    console.log(car);
+
+    // Constructing a URL to search Giphy for the name of the person who said the quote
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         car + "&api_key=dc6zaTOxFJmzC&limit=10";
 
-    // Performing AJAX GET request
+    // Performing our AJAX GET request
     $.ajax({
           url: queryURL,
           method: "GET"
@@ -75,53 +93,35 @@ function getCarImages() {
             if (results[i].rating !== "r") 
             {
                   // Creating a div with the class "item"
-                  var gifDiv = $("<div class='img-thumbnail'>");
+                  var gifDiv = $("<div class='item'>");
 
                   // Storing the result item's rating
                   var rating = results[i].rating;
 
                   // Creating a paragraph tag with the result item's rating
                   var p = $("<p>").text("Rating: " + rating);
-                  
+                  $("#carImages").append(p);
+
+                  // Creating an image tag
                   var carImage = $("<img>");
 
-                  // Giving the image attributes
-                  carImage.attr("src", results[i].images.fixed_height_still.url);
-                  carImage.attr("data-still", results[i].images.fixed_height_still.url);
-                  carImage.attr("data-animate", results[i].images.fixed_height.url);
-                  carImage.attr("class", "gif");
-                  carImage.attr("data-state", "still");
-
+                  // Giving the image tag an src attribute of a proprty pulled off the
+                  // result item
+                  carImage.attr("src", results[i].images.fixed_height.url);
+                  $("#carImages").append(carImage);
 
                   // Appending the paragraph and personImage we created to the "gifDiv" div we created
-                  gifDiv.append(p);
-                  gifDiv.append(carImage);
+                   console.log(p);
+
+                    console.log(carImage);
+
+
+                  //gifDiv.append(p);
+                  //gifDiv.append(carImage);
 
                   // Prepending the gifDiv to the "#gifs-appear-here" div in the HTML
-                  $("#carImages").prepend(gifDiv);
+                  //$("#carImages").prepend(gifDiv);
             }
         }
     });
-}
-
-//====================================================================
-//  toggleImageAnimation()
-//====================================================================
-function toggleImageAnimation()
-{
-      // Toggle the state of the image between "data-still" and "data-animate" 
-      // Update the src of the image accordingly
-
-      var state = $(this).attr("data-state");
-
-      if (state === "still") 
-      {
-        $(this).attr("src", $(this).attr("data-animate"));
-        $(this).attr("data-state", "animate");
-      } 
-      else 
-      {
-        $(this).attr("src", $(this).attr("data-still"));
-        $(this).attr("data-state", "still");
-      }
 }

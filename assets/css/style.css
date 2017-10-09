@@ -6,9 +6,10 @@ body{
     font-size: 18px;
     font-family: serif,'Arial', 'Helvetica Neue', Helvetica;
     background-color: lightgrey;
+    margin-right: 3px;
 }
 
-
+#submitCar,
 .carButton{
     background-color: green;
     color: white;
@@ -36,6 +37,9 @@ body{
     border: 0px round;
     border-radius: 10px;
 }
+#submitCar:hover {
+    background-color: salmon;
+}
 
 #label{
     margin-top: 30px;
@@ -47,4 +51,8 @@ body{
 
 .row{
     margin-left: 10px;
+}
+
+.img-thumbnail{
+    margin: 2px;
 }
